@@ -1,0 +1,31 @@
+.container-fluid {
+  height: 4rem;
+  background-color: green;
+  margin-bottom: 30px;
+}
+
+.menu-items {
+  display: flex;
+
+  .left-item {
+    h1 {
+      font-size: 2rem;
+      margin-top: 1rem;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .right-item {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    padding: 1rem;
+    color: white;
+    .main-section{
+      cursor: pointer;
+    }
+  }
+}
