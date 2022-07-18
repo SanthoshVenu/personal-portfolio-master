@@ -8,7 +8,8 @@ import { FooterComponent } from './welcome-page/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomepageComponent } from './welcome-page/homepage/homepage.component';
 import { MaterialModule } from './welcome-page/material-module/material.module';
-import { CardComponent } from './welcome-page/card/card.component'
+import { CardComponent } from './welcome-page/card/card.component';
+import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expense-tracker.component'
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CardComponent } from './welcome-page/card/card.component'
     HeaderComponent,
     FooterComponent,
     HomepageComponent,
-    CardComponent
+    CardComponent,
+    ExpenseTrackerComponent
   ],
   imports: [
     BrowserModule,

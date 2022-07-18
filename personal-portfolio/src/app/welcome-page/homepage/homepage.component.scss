@@ -5,6 +5,7 @@
 
 .main-container {
   display: flex;
+  transition:all 0.4s ease-in-out;
 }
 .person-info{
   background: rgb(2, 0, 36);
