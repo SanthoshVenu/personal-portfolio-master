@@ -1,1 +1,99 @@
-<p>expense-tracker works!</p>
+<div class="container-fluid">
+  <div class="top-container">
+    <div class="input-expensedate-container">
+      <form class="expenseform" [formGroup]="expenseDataForm">
+        <div class="radio-button p-2">
+          <h4 style="position: relative; left: 0.6rem">Type of Money</h4>
+          <mat-radio-group
+            class="radio-data"
+            style="position: relative; right: 1.2rem"
+            formControlName="income_or_expense"
+          >
+            <mat-radio-button value="Income">Income</mat-radio-button>
+            <mat-radio-button style="padding-left: 2rem" value="Expense"
+              >Expense</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <div class="dropdownData p-2">
+          <h4>Account Name</h4>
+          <mat-form-field
+            appearance="fill"
+            style="position: relative; left: 2rem"
+          >
+            <mat-label>Account Name</mat-label>
+            <mat-select formControlName="accountName">
+              <mat-option
+                *ngFor="let progLang of categories"
+                [value]="progLang"
+              >
+                {{ progLang }}
+              </mat-option>
+            </mat-select>
+            <span matSuffix class="material-icons"> code </span>
+          </mat-form-field>
+        </div>
+        <div class="dropdownData p-2">
+          <h4 style="position: relative; right: 0.5rem">Categories</h4>
+          <mat-form-field
+            style="position: relative; left: 2.5rem"
+            appearance="fill"
+          >
+            <mat-label>Categories</mat-label>
+            <mat-select formControlName="categoryName">
+              <mat-option
+                *ngFor="let progLang of categories"
+                [value]="progLang"
+              >
+                {{ progLang }}
+              </mat-option>
+            </mat-select>
+            <span matSuffix class="material-icons"> code </span>
+          </mat-form-field>
+        </div>
+        <div class="dropdownData p-2">
+          <h4 style="position: relative; left: 0.1rem">Sub Categories</h4>
+          <mat-form-field
+            style="position: relative; left: 2rem"
+            appearance="fill"
+          >
+            <mat-label>SubCategory</mat-label>
+            <mat-select formControlName="subCategoryName">
+              <mat-option
+                *ngFor="let progLang of categories"
+                [value]="progLang"
+              >
+                {{ progLang }}
+              </mat-option>
+            </mat-select>
+            <span matSuffix class="material-icons"> code </span>
+          </mat-form-field>
+        </div>
+        <div class="dropdownData p-2">
+          <h4 style="position: relative; right: 1.1rem">Cost</h4>
+          <mat-form-field
+            style="position: relative; left: 3.3rem"
+            appearance="fill"
+          >
+            <mat-label>Cost</mat-label>
+            <input matInput formControlName="cost" />
+            <span matSuffix class="material-icons"> phone </span>
+          </mat-form-field>
+        </div>
+        <div class="dropdownData description p-2">
+          <h4>Description</h4>
+          <mat-form-field
+            style="position: relative; left: 4.5rem"
+            appearance="outline"
+          >
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="bottom-container">
+    <div class="expensetracker-grid-container"></div>
+  </div>
+</div>

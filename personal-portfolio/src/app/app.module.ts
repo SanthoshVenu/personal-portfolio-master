@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../shared/modules/material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './welcome-page/header/header.component';
 import { FooterComponent } from './welcome-page/footer/footer.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomepageComponent } from './welcome-page/homepage/homepage.component';
-import { MaterialModule } from './welcome-page/material-module/material.module';
 import { CardComponent } from './welcome-page/card/card.component';
 import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expense-tracker.component'
 
@@ -25,7 +25,11 @@ import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expens
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

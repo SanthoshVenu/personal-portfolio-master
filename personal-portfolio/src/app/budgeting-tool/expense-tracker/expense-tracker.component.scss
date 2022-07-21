@@ -1,0 +1,60 @@
+.container-fluid {
+  height: 100%;
+  // display:flex;
+  // flex-direction: column;
+}
+
+
+
+.input-expensedate-container {
+  display: flex;
+  flex-direction: column;
+
+  .expenseform {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.radio-button {
+  user-select: auto;
+  display: flex;
+  width: 50%;
+  justify-content: space-evenly;
+
+  h4 {
+    margin: 0;
+    position: relative;
+    bottom: 0.2rem;
+  }
+
+
+}
+
+.dropdownData {
+  user-select: auto;
+  display: flex;
+  width: 40%;
+  justify-content: space-evenly;
+
+  h4 {
+    position: relative;
+    top: 1rem;
+  }
+}
+
+.description {
+  width: 60%;
+
+  h4 {
+    position: relative;
+    left: 5.5rem;
+  }
+
+  ::ng-deep mat-form-field.mat-form-field {
+    position: relative;
+    left: 4.4rem;
+    width: 40%
+  }
+}
