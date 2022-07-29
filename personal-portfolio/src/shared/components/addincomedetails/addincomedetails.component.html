@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <form [formGroup]="incomeDetailsForm">
+    <div class="row">
+      <div class="col">
+        <select class="custom-select" formControlName="incomeSourceName">
+          <option value="">Choose</option>
+          <option *ngFor="let incomeSources of incomeSourceDetails" [ngValue]="incomeSources.incomeSource">
+            {{incomeSources.incomeSource}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" id="username" formControlName="income">
+      </div>
+    </div>
+  </form>
+  {{incomeDetailsForm.value | json}}
+</div>

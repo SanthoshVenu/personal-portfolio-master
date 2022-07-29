@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../shared/modules/material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './welcome-page/header/header.component';
 import { FooterComponent } from './welcome-page/footer/footer.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomepageComponent } from './welcome-page/homepage/homepage.component';
-import { MaterialModule } from './welcome-page/material-module/material.module';
 import { CardComponent } from './welcome-page/card/card.component';
-import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expense-tracker.component'
+import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expense-tracker.component';
+import { IncomeExpenseComponent } from './budgeting-tool/income-expense/income-expense.component';
+import { ExpenseTrackerService } from '../shared/services/expensetrackerservice.service';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -19,15 +24,24 @@ import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expens
     FooterComponent,
     HomepageComponent,
     CardComponent,
-    ExpenseTrackerComponent
+    ExpenseTrackerComponent,
+    IncomeExpenseComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    SharedModule,
+    NgbModule
+
   ],
-  providers: [],
+
+  providers: [ExpenseTrackerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="rows">
+    <div class="income">
+      <div class=" box">{{totalIncome}} </div>
+      <app-popupmodal (updatedIncome)="updatedIncome($event)" (updatedRemainingCash)="updatedRemainingCash($event)">
+      </app-popupmodal>
+    </div>
+    <div class=" box">{{updatedExpense}}</div>
+  </div>
+</div>

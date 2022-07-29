@@ -1,0 +1,44 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+  <span class="material-icons">
+    add_circle
+  </span></button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered popup" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Adding Income</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="incomeDetailsForm">
+            <div class="row">
+              <div class="col">
+                <select class="custom-select" formControlName="incomeSourceName" placeholder="Income Sources">
+                  <option value="" selected disabled>Please select</option>
+                  <option *ngFor="let incomeSources of incomeSourceDetails" [ngValue]="incomeSources.incomeSource">
+                    {{incomeSources.incomeSource}}</option>
+                </select>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="username" formControlName="income">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" (click)="OnSubmitNewIncomeForm()" data-dismiss="modal" class="btn btn-primary">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>
