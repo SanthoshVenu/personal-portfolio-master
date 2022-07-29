@@ -62,8 +62,13 @@ export class ExpenseTrackerService {
       .pipe(retry(1), catchError(this.handleError))
   }
 
-  saveIncomeSourceDetails(incomeSourceData: any): Observable<Budgetdetails> {
-    return this.http.post<Budgetdetails>(this.apiIncomeDetailsURL, JSON.stringify(incomeSourceData), { "headers": this.httpOptions.header })
+  updateIncomeData(incomeSourceData: any): Observable<Budgetdetails> {
+    return this.http.post<Budgetdetails>(this.apiIncomeDetailsURL + "/update-income", JSON.stringify(incomeSourceData), { "headers": this.httpOptions.header })
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  updateExpenseData(expenseData: any): Observable<Budgetdetails> {
+    return this.http.post<Budgetdetails>(this.apiIncomeDetailsURL + "/update-income", JSON.stringify(expenseData), { "headers": this.httpOptions.header })
       .pipe(retry(1), catchError(this.handleError));
   }
 

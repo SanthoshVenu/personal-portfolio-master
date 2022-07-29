@@ -18,7 +18,7 @@ export class ExpenseTrackerComponent implements OnInit {
   selectedCategoryId?: number = 0;
   modeOfPayments: Paymentmode[] = [];
   expenseTrackerModal: any = {};
-  addedExpense: number = 0;
+  updatedExpense: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -100,8 +100,8 @@ export class ExpenseTrackerComponent implements OnInit {
         'November',
         'December',
       ];
-      let incomeSourceData = {};
-      incomeSourceData = {
+      let expenseData = {};
+      expenseData = {
         budgetName: "",
         incomeSourceName: "",
         sourceId: 0,
@@ -111,8 +111,8 @@ export class ExpenseTrackerComponent implements OnInit {
         year: date.getFullYear(),
 
       };
-      this.expenseService.saveIncomeSourceDetails(incomeSourceData).subscribe((budgetDetails) => {
-        this.addedExpense = budgetDetails.totalExpenses;
+      this.expenseService.updateExpenseData(expenseData).subscribe((budgetDetails) => {
+        this.updatedExpense = budgetDetails.totalExpenses;
       });
 
       // Need to add "Expense Added Successfully"
@@ -120,6 +120,7 @@ export class ExpenseTrackerComponent implements OnInit {
         .saveExpenseDate(expenseDataObject)
         .subscribe((data) => {
         });
+      this.expenseDataForm.reset();
     }
   }
 }

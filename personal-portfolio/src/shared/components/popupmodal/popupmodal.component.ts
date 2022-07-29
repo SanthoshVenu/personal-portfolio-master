@@ -20,10 +20,8 @@ export class PopupModalComponent implements OnInit {
     private expenseService: ExpenseTrackerService
   ) { }
   @Input() name!: string;
-  @Input() currentIncome!: number;
-  @Input() currentExpenses!: number;
   @Output() updatedIncome = new EventEmitter<number>();
-  @Output() updatedExpenses = new EventEmitter<number>();
+  //  @Output() updatedExpenses = new EventEmitter<number>();
   @Output() updatedRemainingCash = new EventEmitter<number>();
   ngOnInit(): void {
     this.incomeDetailsForm = this.fb.group({
@@ -41,6 +39,7 @@ export class PopupModalComponent implements OnInit {
         this.incomeSourceDetails.push(incomeSource);
       });
     });
+    console.log(this.incomeSourceDetails);
   }
   public OnSubmitNewIncomeForm(): void {
     if (this.incomeDetailsForm.valid) {
@@ -64,22 +63,22 @@ export class PopupModalComponent implements OnInit {
         budgetName: "SV" + monthNames[date.getMonth()] + "/" + date.getFullYear(),
         incomeSourceName: this.incomeDetailsForm.value['incomeSourceName'],
         sourceId: this.incomeSourceDetails.find(
-          (x) => x == this.incomeDetailsForm.value['incomeSourceName']
+          (x) => x.incomeSource == this.incomeDetailsForm.value['incomeSourceName']
         )?.incomeId,
         newIncome: this.incomeDetailsForm.value['income'],
         currentExpenses: 0,
         month: monthNames[date.getMonth()],
         year: date.getFullYear(),
       };
-
+      console.log(incomeSourceData);
       this.incomeDetailsForm.reset();
     }
   }
 
   public saveIncomeDetails(incomeSourceData: any): void {
-    this.expenseService.saveIncomeSourceDetails(incomeSourceData).subscribe((budgetDetails) => {
+    this.expenseService.updateIncomeData(incomeSourceData).subscribe((budgetDetails) => {
       this.updatedIncome.emit(budgetDetails.totalIncome);
-      this.updatedExpenses.emit(budgetDetails.totalExpenses);
+      //this.updatedExpenses.emit(budgetDetails.totalExpenses);
       this.updatedRemainingCash.emit(budgetDetails.totalRemainingCash);
     });
   }
