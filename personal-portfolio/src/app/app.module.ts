@@ -9,7 +9,12 @@ import { HeaderComponent } from './welcome-page/header/header.component';
 import { FooterComponent } from './welcome-page/footer/footer.component';
 import { HomepageComponent } from './welcome-page/homepage/homepage.component';
 import { CardComponent } from './welcome-page/card/card.component';
-import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expense-tracker.component'
+import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expense-tracker.component';
+import { IncomeExpenseComponent } from './budgeting-tool/income-expense/income-expense.component';
+import { ExpenseTrackerService } from '../shared/services/expensetrackerservice.service';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -19,7 +24,9 @@ import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expens
     FooterComponent,
     HomepageComponent,
     CardComponent,
-    ExpenseTrackerComponent
+    ExpenseTrackerComponent,
+    IncomeExpenseComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -28,10 +35,13 @@ import { ExpenseTrackerComponent } from './budgeting-tool/expense-tracker/expens
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    HttpClientModule,
+    SharedModule,
+    NgbModule
 
   ],
-  providers: [],
+
+  providers: [ExpenseTrackerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
