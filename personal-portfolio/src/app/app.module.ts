@@ -15,6 +15,7 @@ import { ExpenseTrackerService } from '../shared/services/expensetrackerservice.
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ExpenseDetailsTableComponent } from './budgeting-tool/expense-details-table/expense-details-table.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CardComponent,
     ExpenseTrackerComponent,
     IncomeExpenseComponent,
+    ExpenseDetailsTableComponent,
 
   ],
   imports: [

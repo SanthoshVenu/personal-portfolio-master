@@ -49,6 +49,7 @@ export class IncomeExpenseComponent implements OnInit {
     this.selectedMonth = this.monthNames[date.getMonth()];
     this.totalExpense = this.updatedExpense;
 
+
   }
 
   public updatedIncome(event: any): void {
@@ -87,11 +88,8 @@ export class IncomeExpenseComponent implements OnInit {
   }
   public minMaxDateConfiguration() {
     var date = new Date();
-    console.log(this.monthNames.indexOf(this.selectedMonth));
     this.minDate = new Date(date.getFullYear(), this.monthNames.indexOf(this.selectedMonth), 1);
     this.maxDate = new Date(date.getFullYear(), this.monthNames.indexOf(this.selectedMonth) + 1, 0);
-    console.log("Hello");
-    console.log(`${this.minDate} -- ${this.maxDate}`);
     this.minMaxDateRange.emit({ minDate: this.minDate, maxDate: this.maxDate });
   }
 

@@ -32,9 +32,9 @@ export class ExpenseTrackerService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  saveExpenseDate(expenseData: any): Observable<ExpenseData> {
+  saveExpenseDate(expenseData: any): Observable<ExpenseData[]> {
     console.table(expenseData);
-    return this.http.post<ExpenseData>(this.apiExpenseTrackerURL, JSON.stringify(expenseData), { "headers": this.httpOptions.header })
+    return this.http.post<ExpenseData[]>(this.apiExpenseTrackerURL, JSON.stringify(expenseData), { "headers": this.httpOptions.header })
       .pipe(retry(1), catchError(this.handleError));
   }
 

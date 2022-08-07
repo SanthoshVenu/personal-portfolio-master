@@ -5,7 +5,8 @@
 
   <div class="top-container">
     <div class="input-expensedate-container">
-      <form class="expenseform" [formGroup]="expenseDataForm" (ngSubmit)="onSubmitForm(expenseDataForm.value)">
+      <form class="expenseform" #formDirective="ngForm" [formGroup]="expenseDataForm"
+        (ngSubmit)="onSubmitForm(expenseDataForm.value,formDirective)">
         <div class="row">
           <div class="col radio-button p-2">
             <h4 style="position: relative; right: 1.6rem">Income/Expense</h4>
@@ -103,13 +104,13 @@
             </button>
           </div>
           <div class="col" style="user-select: auto; text-align: center">
-            <button class="button" (click)="formReset()" mat-raised-button color="warn">Reset</button>
+            <button class="button" (click)="formReset(formDirective)" mat-raised-button color="warn">Reset</button>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <!-- <app-expensedetailstable></app-expensedetailstable> -->
+  <app-expense-details-table [expenseTableData]="expenseTableUpdatedData"></app-expense-details-table>
   <div class="bottom-container">
     <div class="expensetracker-grid-container"></div>
   </div>

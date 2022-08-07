@@ -3,10 +3,12 @@ export interface ExpenseData {
   userName: string;
   account: string;
   category: string;
-  subcategory: string;
+  subCategory: string;
   cost: number;
   description: string;
   date: Date;
+  month: string;
+  year: number;
   isFavourite: boolean;
   isActive: boolean;
 }

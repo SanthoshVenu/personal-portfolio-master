@@ -61,7 +61,6 @@ export class PopupModalComponent implements OnInit {
       ];
       let incomeSourceData = {};
       if (this.selectedMonth !== null && this.selectedMonth !== "" && this.selectedMonth !== undefined) {
-        console.log(`Selected Month -- ${this.selectedMonth}`);
         incomeSourceData = {
           budgetName: "SV" + monthNames[date.getMonth()] + "/" + date.getFullYear(),
           incomeSourceName: this.incomeDetailsForm.value['incomeSourceName'],

@@ -1,10 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, OnChanges, Input } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormGroupDirective } from '@angular/forms';
 import { ExpenseTrackerService } from '../../../shared/services/expensetrackerservice.service';
 import { ExpenseData } from '../../../shared/models/expense-data';
 import { Category } from '../../../shared/models/category';
 import { Subcategory } from '../../../shared/models/subcategory';
 import { Paymentmode } from '../../../shared/models/paymentmode';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-expense-tracker',
@@ -21,6 +22,7 @@ export class ExpenseTrackerComponent implements OnInit {
   updatedExpense: number = 0;
   currentSelectedMonth!: string;
   currentSelectedYear!: number;
+  expenseTableUpdatedData: any;
 
   @Input() minDate!: Date;
   @Input() maxDate!: Date;
@@ -43,8 +45,12 @@ export class ExpenseTrackerComponent implements OnInit {
       isFavourite: [false],
       isActive: [true],
     });
+    var date = new Date();
+    this.currentSelectedMonth = this.monthNames[date.getMonth()];
+    this.currentSelectedYear = date.getFullYear();
     this.getCategoryData();
     this.getModeOfPaymentData();
+    this.updatedExpenseData(this.currentSelectedMonth, this.currentSelectedYear);
   }
 
   public getCategoryData(): void {
@@ -84,8 +90,9 @@ export class ExpenseTrackerComponent implements OnInit {
     this.minDate = event.minDate;
     this.maxDate = event.maxDate;
     this.expenseDataForm.reset();
+    this.updatedExpenseData(this.currentSelectedMonth, this.currentSelectedYear);
   }
-  public onSubmitForm(expenseFormDate: ExpenseData) {
+  public onSubmitForm(expenseFormDate: ExpenseData, formDirective: FormGroupDirective) {
     if (this.expenseDataForm.valid) {
       let expenseDataObject = {};
 
@@ -117,23 +124,40 @@ export class ExpenseTrackerComponent implements OnInit {
           year: this.currentSelectedYear,
 
         };
+
         this.expenseService.updateExpenseData(expenseData).subscribe((budgetDetails) => {
           this.updatedExpense = budgetDetails.totalExpenses;
         });
-        this.expenseDataForm.reset();
+
         //   this.expenseDataForm.updateValueAndValidity();
         // Need to add "Expense Added Successfully"
-        this.expenseService
-          .saveExpenseDate(expenseDataObject)
-          .subscribe((data) => {
-          });
-
+        this.expenseService.saveExpenseDate(expenseDataObject).pipe(switchMap(data => {
+          return this.expenseService.getAllExpenseData()
+        })).subscribe(allExpenseData => {
+          this.expenseTableUpdatedData = allExpenseData.filter(x => x.month === this.currentSelectedMonth && x.year === this.currentSelectedYear);
+        })
+        // this.updatedExpenseData(this.currentSelectedMonth, this.currentSelectedYear);
+        this.expenseDataForm.reset();
+        formDirective.resetForm();
       }
     }
 
   }
-  public formReset() {
+
+  public updatedExpenseData(selectedMonth: string, selectedYear: number) {
+    console.log(`${selectedMonth}--${selectedYear}`);
+    this.expenseService.getAllExpenseData().subscribe(data => {
+      console.log(data);
+      this.expenseTableUpdatedData = data.filter(x => x.month === selectedMonth && x.year === selectedYear);
+    })
+    // console.log(`this.expenseTableUpdatedData == ${this.expenseTableUpdatedData}`);
+    // if (this.expenseTableUpdatedData === undefined) {
+    //   this.updatedExpenseData(this.currentSelectedMonth, this.currentSelectedYear);
+    // }
+  }
+  public formReset(formDirective: FormGroupDirective) {
     this.expenseDataForm.reset();
+    formDirective.resetForm();
 
   }
 }
