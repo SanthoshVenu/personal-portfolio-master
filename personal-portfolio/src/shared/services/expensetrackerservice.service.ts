@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ExpenseData } from '../models/expense-data';
@@ -69,6 +69,12 @@ export class ExpenseTrackerService {
 
   updateExpenseData(expenseData: any): Observable<Budgetdetails> {
     return this.http.post<Budgetdetails>(this.apiIncomeDetailsURL + "/update-income", JSON.stringify(expenseData), { "headers": this.httpOptions.header })
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getTotalIncomeandExpenses(month: string, year: number): Observable<number[]> {
+    const params = new HttpParams().set('month', month).set('year', year);
+    return this.http.get<number[]>(this.apiIncomeDetailsURL + "/get-totIncExp", { params })
       .pipe(retry(1), catchError(this.handleError));
   }
 

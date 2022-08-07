@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnChanges, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ExpenseTrackerService } from '../../../shared/services/expensetrackerservice.service';
 import { ExpenseData } from '../../../shared/models/expense-data';
@@ -19,14 +19,20 @@ export class ExpenseTrackerComponent implements OnInit {
   modeOfPayments: Paymentmode[] = [];
   expenseTrackerModal: any = {};
   updatedExpense: number = 0;
+  currentSelectedMonth!: string;
+  currentSelectedYear!: number;
 
+  @Input() minDate!: Date;
+  @Input() maxDate!: Date;
+  monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   constructor(
     private fb: FormBuilder,
     private expenseService: ExpenseTrackerService
   ) { }
+
   ngOnInit(): void {
     this.expenseDataForm = this.fb.group({
-      expenseName: ['Name', [Validators.required]],
+      expenseName: ['Name'],
       userName: ['Santhosh Venugopal'],
       modeOfPayment: ['', [Validators.required]],
       categoryName: ['', [Validators.required]],
@@ -69,7 +75,17 @@ export class ExpenseTrackerComponent implements OnInit {
       });
     });
   }
-  onSubmitForm(expenseFormDate: ExpenseData) {
+  public currentMonthYear(event: any) {
+    this.currentSelectedMonth = event.currentMonth.toString();
+    this.currentSelectedYear = event.currentYear;
+    this.expenseDataForm.reset();
+  }
+  public minMaxDateConfiguration(event: any) {
+    this.minDate = event.minDate;
+    this.maxDate = event.maxDate;
+    this.expenseDataForm.reset();
+  }
+  public onSubmitForm(expenseFormDate: ExpenseData) {
     if (this.expenseDataForm.valid) {
       let expenseDataObject = {};
 
@@ -80,47 +96,44 @@ export class ExpenseTrackerComponent implements OnInit {
         category: this.expenseDataForm.value['categoryName'],
         subCategory: this.expenseDataForm.value['subCategoryName'],
         cost: this.expenseDataForm.value['cost'],
+        month: this.currentSelectedMonth,
+        year: this.currentSelectedYear,
         date: this.expenseDataForm.value['spendingDate'],
         description: this.expenseDataForm.value['description'],
         isFavourite: this.expenseDataForm.value['isFavourite'],
         isActive: this.expenseDataForm.value['isActive'],
       };
       const date = new Date();
-      const monthNames = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-      ];
-      let expenseData = {};
-      expenseData = {
-        budgetName: "",
-        incomeSourceName: "",
-        sourceId: 0,
-        newIncome: 0,
-        currentExpenses: this.expenseDataForm.value['cost'],
-        month: monthNames[date.getMonth()],
-        year: date.getFullYear(),
+      if (this.currentSelectedMonth !== null && this.currentSelectedMonth !== "" && this.currentSelectedMonth !== undefined) {
 
-      };
-      this.expenseService.updateExpenseData(expenseData).subscribe((budgetDetails) => {
-        this.updatedExpense = budgetDetails.totalExpenses;
-      });
+        let expenseData = {};
+        expenseData = {
+          budgetName: "",
+          incomeSourceName: "",
+          sourceId: 0,
+          newIncome: 0,
+          currentExpenses: this.expenseDataForm.value['cost'],
+          month: this.currentSelectedMonth,
+          year: this.currentSelectedYear,
 
-      // Need to add "Expense Added Successfully"
-      this.expenseService
-        .saveExpenseDate(expenseDataObject)
-        .subscribe((data) => {
+        };
+        this.expenseService.updateExpenseData(expenseData).subscribe((budgetDetails) => {
+          this.updatedExpense = budgetDetails.totalExpenses;
         });
-      this.expenseDataForm.reset();
+        this.expenseDataForm.reset();
+        //   this.expenseDataForm.updateValueAndValidity();
+        // Need to add "Expense Added Successfully"
+        this.expenseService
+          .saveExpenseDate(expenseDataObject)
+          .subscribe((data) => {
+          });
+
+      }
     }
+
+  }
+  public formReset() {
+    this.expenseDataForm.reset();
+
   }
 }

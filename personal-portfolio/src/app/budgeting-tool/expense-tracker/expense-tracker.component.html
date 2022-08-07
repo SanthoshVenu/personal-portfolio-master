@@ -1,5 +1,7 @@
 <div class="container-fluid">
-  <app-income-expense [updatedExpense]="updatedExpense"></app-income-expense>
+  <app-income-expense (minMaxDateRange)="minMaxDateConfiguration($event)" [updatedExpense]="updatedExpense"
+    (currentMonthYear)="currentMonthYear($event)">
+  </app-income-expense>
 
   <div class="top-container">
     <div class="input-expensedate-container">
@@ -14,7 +16,7 @@
           </div>
           <div class="col dropdownData p-2">
             <h4>Payment Mode</h4>
-            <mat-form-field appearance="fill" style="position: relative; left: 2rem">
+            <mat-form-field appearance="outline" style="position: relative; left: 2rem">
               <mat-label>Payment Mode</mat-label>
               <mat-select formControlName="modeOfPayment">
                 <mat-option *ngFor="let mode of modeOfPayments" [value]="mode.paymentModeName">
@@ -28,7 +30,7 @@
         <div class="row">
           <div class="col dropdownData p-2">
             <h4 style="position: relative; right: 0.5rem">Categories</h4>
-            <mat-form-field style="position: relative; left: 2.5rem" appearance="fill">
+            <mat-form-field style="position: relative; left: 2.5rem" appearance="outline">
               <mat-label>Categories</mat-label>
               <mat-select formControlName="categoryName" (valueChange)="getSubCategoryDataByCategoryId($event)">
                 <mat-option *ngFor="let category of categoriesData" [value]="category.categoryName">
@@ -40,7 +42,7 @@
           </div>
           <div class="col dropdownData p-2">
             <h4 style="position: relative; left: 0.1rem">Sub Categories</h4>
-            <mat-form-field style="position: relative; left: 2rem" appearance="fill">
+            <mat-form-field style="position: relative; left: 2rem" appearance="outline">
               <mat-label>SubCategory</mat-label>
               <mat-select formControlName="subCategoryName">
                 <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory">
@@ -54,7 +56,7 @@
         <div class="row">
           <div class="col dropdownData p-2">
             <h4 style="position: relative; right: 1.1rem">Cost</h4>
-            <mat-form-field style="position: relative; left: 3.3rem" appearance="fill">
+            <mat-form-field style="position: relative; left: 3.3rem" appearance="outline">
               <mat-label>Cost</mat-label>
               <input matInput formControlName="cost" />
               <span matSuffix class="material-icons"> phone </span>
@@ -66,13 +68,13 @@
               align-items: center;
             ">
             <h4 style="position: relative; right: 1rem">Date</h4>
-            <mat-form-field appearance="fill" style="
+            <mat-form-field appearance="outline" style="
                 position: relative;
                 left: 4.3rem; /* right: 10rem; */
                 user-select: auto;
               ">
               <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="spendingDate" />
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="spendingDate" />
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -101,12 +103,13 @@
             </button>
           </div>
           <div class="col" style="user-select: auto; text-align: center">
-            <button class="button" mat-raised-button color="warn">Reset</button>
+            <button class="button" (click)="formReset()" mat-raised-button color="warn">Reset</button>
           </div>
         </div>
       </form>
     </div>
   </div>
+  <!-- <app-expensedetailstable></app-expensedetailstable> -->
   <div class="bottom-container">
     <div class="expensetracker-grid-container"></div>
   </div>

@@ -20,6 +20,8 @@ export class PopupModalComponent implements OnInit {
     private expenseService: ExpenseTrackerService
   ) { }
   @Input() name!: string;
+  @Input() selectedMonth!: string;
+  @Input() selectedYear!: number;
   @Output() updatedIncome = new EventEmitter<number>();
   //  @Output() updatedExpenses = new EventEmitter<number>();
   @Output() updatedRemainingCash = new EventEmitter<number>();
@@ -39,7 +41,6 @@ export class PopupModalComponent implements OnInit {
         this.incomeSourceDetails.push(incomeSource);
       });
     });
-    console.log(this.incomeSourceDetails);
   }
   public OnSubmitNewIncomeForm(): void {
     if (this.incomeDetailsForm.valid) {
@@ -59,19 +60,25 @@ export class PopupModalComponent implements OnInit {
         'December',
       ];
       let incomeSourceData = {};
-      incomeSourceData = {
-        budgetName: "SV" + monthNames[date.getMonth()] + "/" + date.getFullYear(),
-        incomeSourceName: this.incomeDetailsForm.value['incomeSourceName'],
-        sourceId: this.incomeSourceDetails.find(
-          (x) => x.incomeSource == this.incomeDetailsForm.value['incomeSourceName']
-        )?.incomeId,
-        newIncome: this.incomeDetailsForm.value['income'],
-        currentExpenses: 0,
-        month: monthNames[date.getMonth()],
-        year: date.getFullYear(),
-      };
-      console.log(incomeSourceData);
-      this.incomeDetailsForm.reset();
+      if (this.selectedMonth !== null && this.selectedMonth !== "" && this.selectedMonth !== undefined) {
+        console.log(`Selected Month -- ${this.selectedMonth}`);
+        incomeSourceData = {
+          budgetName: "SV" + monthNames[date.getMonth()] + "/" + date.getFullYear(),
+          incomeSourceName: this.incomeDetailsForm.value['incomeSourceName'],
+          sourceId: this.incomeSourceDetails.find(
+            (x) => x.incomeSource == this.incomeDetailsForm.value['incomeSourceName']
+          )?.incomeId,
+          newIncome: this.incomeDetailsForm.value['income'],
+          currentExpenses: 0,
+          month: this.selectedMonth,
+          year: this.selectedYear,
+        };
+        this.saveIncomeDetails(incomeSourceData);
+        this.incomeDetailsForm.reset();
+      }
+      else {
+        alert('Please select Month')
+      }
     }
   }
 

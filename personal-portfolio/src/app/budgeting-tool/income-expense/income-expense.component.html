@@ -1,8 +1,28 @@
 <div class="container-fluid">
+  <!-- <div class="row-period">
+    <div class="box month">Month</div>
+    <div class="box month">Year</div>
+  </div> -->
+
+  <form [formGroup]="monthYearForm">
+    <div class="month-rear-dropdown">
+      <select class="custom-select" formControlName="month">
+        <option selected disabled>Please Select Month</option>
+        <option *ngFor="let month of this.monthNames" [ngValue]="month">{{month}}</option>
+      </select>
+      <select class="custom-select" formControlName="year">
+        <option selected disabled>Please Select Year</option>
+        <option [ngValue]="2022">2022</option>
+      </select>
+      <button type="submit" (click)="onSubmitForm(monthYearForm.value)" class="btn btn-success">GO</button>
+    </div>
+  </form>
+  {{monthYearForm.value | json}}
   <div class="rows">
     <div class="income">
       <div class=" box">{{totalIncome}} </div>
-      <app-popupmodal (updatedIncome)="updatedIncome($event)" (updatedRemainingCash)="updatedRemainingCash($event)">
+      <app-popupmodal [selectedMonth]="selectedMonth" [selectedYear]="selectedYear"
+        (updatedIncome)="updatedIncome($event)" (updatedRemainingCash)="updatedRemainingCash($event)">
       </app-popupmodal>
     </div>
     <div class=" box">{{updatedExpense}}</div>
