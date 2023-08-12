@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExpenseDetailsTableComponent } from './budgeting-tool/expense-details-table/expense-details-table.component';
+import { NgbdSortableHeader } from "././budgeting-tool/expense-details-table/NgbdSortableHeader";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ExpenseDetailsTableComponent } from './budgeting-tool/expense-details-t
     ExpenseTrackerComponent,
     IncomeExpenseComponent,
     ExpenseDetailsTableComponent,
+    NgbdSortableHeader
 
   ],
   imports: [
@@ -42,6 +44,7 @@ import { ExpenseDetailsTableComponent } from './budgeting-tool/expense-details-t
     NgbModule
 
   ],
+  exports: [ExpenseDetailsTableComponent],
 
   providers: [ExpenseTrackerService],
   bootstrap: [AppComponent]

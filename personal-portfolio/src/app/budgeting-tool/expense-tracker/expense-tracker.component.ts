@@ -145,10 +145,9 @@ export class ExpenseTrackerComponent implements OnInit {
   }
 
   public updatedExpenseData(selectedMonth: string, selectedYear: number) {
-    console.log(`${selectedMonth}--${selectedYear}`);
     this.expenseService.getAllExpenseData().subscribe(data => {
-      console.log(data);
       this.expenseTableUpdatedData = data.filter(x => x.month === selectedMonth && x.year === selectedYear);
+      console.log(this.expenseTableUpdatedData);
     })
     // console.log(`this.expenseTableUpdatedData == ${this.expenseTableUpdatedData}`);
     // if (this.expenseTableUpdatedData === undefined) {
